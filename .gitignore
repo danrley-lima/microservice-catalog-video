@@ -1,3 +1,5 @@
+/.phpunit.cache
 /.vscode
 /vendor/
 *.log
+.phpunit.result.cache
