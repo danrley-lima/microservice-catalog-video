@@ -1,0 +1,16 @@
+{
+    "name": "danrleylima/app-php-catalog-video",
+    "description": "App with PHP - Catalog Video",
+    "authors": [
+        {
+            "name": "Danrley Lima",
+            "email": "danrleylac@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Core\\": "src/Core/"
+        }
+    },
+    "require": {}
+}
