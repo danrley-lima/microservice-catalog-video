@@ -3,6 +3,7 @@
 namespace Core\Domain\Entity;
 
 use Core\Domain\Entity\Traits\MethodsMagicsTrait;
+use Core\Domain\Validation\DomainValidation;
 
 class Category {
   use MethodsMagicsTrait;
@@ -13,18 +14,28 @@ class Category {
     protected string $description = "",
     protected bool $isActive = true,
   ) {
+    $this->validate();
   }
 
   public function activate(): void {
     $this->isActive = true;
   }
 
-  public function desable(): void {
+  public function disable(): void {
     $this->isActive = false;
   }
 
   public function update(string $name, string $description = null) {
     $this->name = $name;
     $this->description = $description ?? $this->description;
+
+    $this->validate();
+  }
+
+  public function validate() {
+    DomainValidation::notNull($this->name);
+    DomainValidation::strMaxlength($this->name);
+    DomainValidation::strMinlength($this->name);
+    DomainValidation::strCanNullAndMaxLength($this->description);
   }
 }
