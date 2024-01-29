@@ -13,4 +13,8 @@ trait MethodsMagicsTrait {
     $className = get_class($this);
     throw new Exception("The property {$property} not exists in {$className}");
   }
+
+  public function id(): string {
+    return (string) $this->id;
+  }
 }
