@@ -22,7 +22,7 @@ class Uuid {
   }
 
   private function ensureIsValid(string $id) {
-    if (RamseyUuid::isValid($id)) {
+    if (!RamseyUuid::isValid($id)) {
       throw new InvalidArgumentException(sprintf("<%s> does not allow the value <%s>.", static::class, $id));
     };
   }
