@@ -39,7 +39,7 @@ class Category {
     $this->validate();
   }
 
-  public function validate() {
+  private function validate() {
     DomainValidation::notNull($this->name);
     DomainValidation::strMaxlength($this->name);
     DomainValidation::strMinlength($this->name);
