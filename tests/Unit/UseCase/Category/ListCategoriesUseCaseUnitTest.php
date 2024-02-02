@@ -9,6 +9,7 @@ use Core\UseCase\DTO\Category\ListCategories\ListCategoriesInputDto;
 use Core\UseCase\DTO\Category\ListCategories\ListCategoriesOutputDto;
 use Mockery;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 class ListCategoriesUseCaseUnitTest extends TestCase {
 
@@ -16,7 +17,6 @@ class ListCategoriesUseCaseUnitTest extends TestCase {
     $mockPagination = $this->mockPagination();
 
     $this->mockRepository = Mockery::mock(CategoryRepositoryInterface::class);
-
     $this->mockRepository->shouldReceive('paginate')->andReturn($mockPagination);
 
     $this->mockInputDto = Mockery::mock(ListCategoriesInputDto::class, [
@@ -29,11 +29,50 @@ class ListCategoriesUseCaseUnitTest extends TestCase {
 
     $this->assertCount(0, $responseUseCase->items);
     $this->assertInstanceOf(ListCategoriesOutputDto::class, $responseUseCase);
+
+    /**
+     * Spies
+     */
+    $this->spy = Mockery::spy(CategoryRepositoryInterface::class);
+    $this->spy->shouldReceive('paginate')->andReturn($mockPagination);
+    $useCase = new ListCategoriesUseCase($this->spy);
+    $responseUseCase = $useCase->execute($this->mockInputDto);
+    $this->spy->shouldHaveReceived("paginate");
   }
 
-  protected function mockPagination() {
+  public function testListCategories() {
+    $register = new stdClass();
+    $register->id = "id";
+    $register->name = "name";
+    $register->description = "description";
+    $register->is_active = "is_active";
+    $register->created_at = "created_at";
+    $register->updated_at = "updated_at";
+    $register->deleted_at = "deleted_at";
+
+    $mockPagination = $this->mockPagination([
+      $register,
+    ]);
+
+    $this->mockRepository = Mockery::mock(CategoryRepositoryInterface::class);
+    $this->mockRepository->shouldReceive('paginate')->andReturn($mockPagination);
+
+    $this->mockInputDto = Mockery::mock(ListCategoriesInputDto::class, [
+      'filter',
+      'order',
+    ]);
+
+    $useCase = new ListCategoriesUseCase($this->mockRepository);
+    $responseUseCase = $useCase->execute($this->mockInputDto);
+
+    $this->assertCount(1, $responseUseCase->items);
+    $this->assertInstanceOf(stdClass::class, $responseUseCase->items[0]);
+    $this->assertInstanceOf(ListCategoriesOutputDto::class, $responseUseCase);
+  }
+
+  protected function mockPagination(array $items = []) {
     $this->mockPagination = Mockery::mock(PaginationInterface::class);
-    $this->mockPagination->shouldReceive('items')->andReturn([]);
+    $this->mockPagination->shouldReceive('items')->andReturn($items);
     $this->mockPagination->shouldReceive('total')->andReturn(0);
     $this->mockPagination->shouldReceive('lastPage')->andReturn(0);
     $this->mockPagination->shouldReceive('firstPage')->andReturn(0);
