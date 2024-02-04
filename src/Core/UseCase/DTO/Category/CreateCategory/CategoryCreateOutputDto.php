@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\UseCase\DTO\Category;
+namespace Core\UseCase\DTO\Category\CreateCategory;
 
 class CategoryCreateOutputDto {
   public function __construct(
@@ -8,6 +8,7 @@ class CategoryCreateOutputDto {
     public string $name,
     public string $description = "",
     public bool $is_active = true,
+    public string $created_at = "",
   ) {
   }
 }
