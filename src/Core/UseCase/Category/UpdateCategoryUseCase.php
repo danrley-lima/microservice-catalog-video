@@ -3,8 +3,8 @@
 namespace Core\UseCase\Category;
 
 use App\Core\Domain\Repository\CategoryRepositoryInterface;
-use Core\UseCase\DTO\Category\UpdateCategoryInputDto;
-use Core\UseCase\DTO\Category\UpdateCategoryOutputDto;
+use Core\UseCase\DTO\Category\UpdateCategory\UpdateCategoryInputDto;
+use Core\UseCase\DTO\Category\UpdateCategory\UpdateCategoryOutputDto;
 
 class UpdateCategoryUseCase {
   protected $repository;
@@ -13,10 +13,7 @@ class UpdateCategoryUseCase {
   }
 
   public function execute(UpdateCategoryInputDto $input): UpdateCategoryOutputDto {
-    // var_dump(get_object_vars($input));
     $category = $this->repository->findById($input->id);
-
-    var_dump(get_object_vars($category));
 
     $category->update(
       name: $input->name,
@@ -29,7 +26,8 @@ class UpdateCategoryUseCase {
       id: $updatedCategory->id,
       name: $updatedCategory->name,
       description: $updatedCategory->description,
-      isActive: $updatedCategory->isActive
+      isActive: $updatedCategory->isActive,
+      created_at: $updatedCategory->createdAt(),
     );
   }
 }

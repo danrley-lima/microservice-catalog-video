@@ -21,7 +21,6 @@ class ListCategoriesUseCase {
 
     // return new ListCategoriesOutputDto(
     //   items: array_map(function ($data) {
-    //     var_dump($data);
     //     return [
     //       'id' => $data->id,
     //       'name' => $data->name,

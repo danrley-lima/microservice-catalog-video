@@ -5,9 +5,8 @@ namespace Tests\Unit\Domain\UseCase\Category;
 use App\Core\Domain\Repository\CategoryRepositoryInterface;
 use Core\Domain\Entity\Category as EntityCategory;
 use Core\UseCase\Category\UpdateCategoryUseCase;
-use Core\UseCase\DTO\Category\CategoryOutputDto;
-use Core\UseCase\DTO\Category\UpdateCategoryInputDto;
-use Core\UseCase\DTO\Category\UpdateCategoryOutputDto;
+use Core\UseCase\DTO\Category\UpdateCategory\UpdateCategoryInputDto;
+use Core\UseCase\DTO\Category\UpdateCategory\UpdateCategoryOutputDto;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
@@ -24,6 +23,8 @@ class UpdateCategoryUseCaseUnitTest extends TestCase {
       $description,
     ]);
     $this->mockEntity->shouldReceive('update');
+    $this->mockEntity->shouldReceive('createdAt')->andReturn(date('Y-m-d H:i:s'));
+
 
     $this->mockRepository = Mockery::mock(CategoryRepositoryInterface::class);
     $this->mockRepository->shouldReceive('findById')->andReturn($this->mockEntity);
