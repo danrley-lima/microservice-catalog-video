@@ -23,4 +23,5 @@ yarn-error.log
 /.composer/cache
 /.vscode-server
 /.github
+/.cache
 # /.devcontainer
