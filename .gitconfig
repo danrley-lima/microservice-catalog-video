@@ -1,0 +1,19 @@
+[credential "https://projetos.imd.ufrn.br"]
+	provider = generic
+[user]
+	email = danrleylac@gmail.com
+	name = Danrley Lima
+[safe]
+	directory = D:/Faculdade UFRN - BTI/Bolsa MCC NAC
+	directory = D:/Faculdade UFRN - BTI/Bolsa MCC NAC/backend
+[alias]
+	s = status
+	c = !git add -A && git commit -m
+	l = log --pretty=format:'%C(blue)%h%C(red)%d %C(white)%s - %C(cyan)%cn, %C(green)%cr'
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[credential]
+	helper = "!f() { /var/www/.vscode-server/bin/903b1e9d8990623e3d7da1df3d33db3e42d80eda/node /tmp/vscode-remote-containers-c8f44e86-f9a0-45a3-b438-bc189ac2ef27.js git-credential-helper $*; }; f"
