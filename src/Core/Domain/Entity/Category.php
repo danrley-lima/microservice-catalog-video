@@ -22,8 +22,6 @@ class Category {
     $this->validate();
   }
 
-
-
   public function activate(): void {
     $this->isActive = true;
   }
