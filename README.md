@@ -11,7 +11,7 @@ To run the tests, follow these steps:
 
 4. Once the container is started, access the terminal of the app-php container with the command:
 ```
-  docker exec -it app-php bash
+  docker exec -it microservice-videos-app bash
 ```
 
 5. Now you are inside the app-php container. To run the tests, use the command:
